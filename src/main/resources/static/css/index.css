@@ -1,0 +1,11 @@
+.fc-scroller {
+	overflow-y: hidden !important;
+}
+
+.timetable-area {
+	margin-top: 50px;
+}
+
+.timetable-footer {
+	margin-top: 15px;
+}

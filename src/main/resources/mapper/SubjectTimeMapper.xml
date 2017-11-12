@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="subjectTimeMapper">
+
+	<resultMap id="subjectTimeMap" type="com.cafe24.timetable.subjecttime.domain.SubjectTime">
+		<id property="seq" column="SEQ"/>
+		<result property="dayOfWeek" column="DAY_OF_WEEK"/>
+		<result property="startTime" column="START_TIME"/>
+		<result property="endTime" column="END_TIME"/>
+	</resultMap>
+
+	<select id="selectBySubjectCode" resultMap="subjectTimeMap">
+		SELECT	SEQ, DAY_OF_WEEK, START_TIME, END_TIME
+		FROM	SUBJECT_TIME
+		WHERE	SUBJECT_CODE = #{value}
+	</select>
+</mapper>
