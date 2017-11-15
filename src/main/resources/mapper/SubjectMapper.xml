@@ -13,7 +13,7 @@
 	<select id="selectByStartWithCode" resultMap="subjectMap">
 		SELECT	CODE, NAME, GRADE
 		FROM	SUBJECT
-		WHERE	CODE LIKE '${value}_%'
+		WHERE	CODE LIKE CONCAT(#{value},'_%')
 	</select>
 
 	<select id="selectByCode" resultMap="subjectMap">
