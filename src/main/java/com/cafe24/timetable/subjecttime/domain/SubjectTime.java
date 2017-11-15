@@ -1,6 +1,7 @@
 package com.cafe24.timetable.subjecttime.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.util.ObjectUtils;
 
 import java.time.LocalTime;
 
@@ -52,6 +53,17 @@ public class SubjectTime {
 
 	public void setEndTime(LocalTime endTime) {
 		this.endTime = endTime;
+	}
+
+	public boolean isReduplicated(SubjectTime subjectTime) {
+		if (ObjectUtils.isEmpty(subjectTime)) {
+			return true;
+		}
+
+		boolean equalDayOfWeek = this.dayOfWeek == subjectTime.getDayOfWeek();
+		boolean equalStartTime = this.startTime.equals(subjectTime.getStartTime());
+
+		return equalDayOfWeek && equalStartTime;
 	}
 
 	@Override

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -67,5 +68,35 @@ public class DefaultSubjectService implements SubjectService {
 		List<SubjectTime> subjectTimeList = subjectTimeService.findBySubjectCode(subject.getCode());
 		subject.setSubjectTimeList(subjectTimeList);
 		return subject;
+	}
+
+	@Override
+	public boolean isNotReduplicated(List<Subject> subjectList, List<SubjectTime> subjectTimeList) {
+		if (CollectionUtils.isEmpty(subjectList)) {
+			return true;
+		}
+
+		for (Subject subject : subjectList) {
+			SubjectTime standardSubjectTime = subject.findSubjectTimeByIndex(0);
+			for (SubjectTime subjectTime : subjectTimeList) {
+				if (standardSubjectTime.isReduplicated(subjectTime)) {
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	@Override
+	public List<Subject> findClonedList(List<Subject> subjectList) {
+		List<Subject> cloneList = new ArrayList<>(subjectList.size());
+
+		for (Subject subject : subjectList) {
+			Subject cloneSubject = subject.clone();
+			cloneList.add(cloneSubject);
+		}
+
+		return cloneList;
 	}
 }
