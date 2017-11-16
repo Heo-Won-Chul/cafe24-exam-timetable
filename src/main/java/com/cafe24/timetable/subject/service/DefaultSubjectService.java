@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -70,18 +69,17 @@ public class DefaultSubjectService implements SubjectService {
 		return subject;
 	}
 
-	@Override
-	public List<SubjectTime> toSubjectTimeList(List<Subject> subjectList) {
-		if (CollectionUtils.isEmpty(subjectList)) {
-			return null;
-		}
+	private static final int MIN_SUM_GRADES = 18;
+	private static final int MAX_SUM_GRADES = 21;
 
-		List<SubjectTime> subjectTimeList = new ArrayList<>();
-
+	// 범위 검사
+	public boolean isOutOfRange(List<Subject> subjectList) {
+		int sumGrades = 0;
 		for (Subject subject : subjectList) {
-			subjectTimeList.add(subject.findSubjectTimeByIndex(0));
+			int grade = subject.getGrade();
+			sumGrades += grade;
 		}
 
-		return subjectTimeList;
+		return sumGrades < MIN_SUM_GRADES || sumGrades > MAX_SUM_GRADES;
 	}
 }
