@@ -1,5 +1,5 @@
 const oDefaultError = (oRequest, nStatus, oError) => {
-	alert(oRequest.responseJSON.message === undefined ? '오류가 발생했습니다' : oRequest.responseJSON.message);
+	alert(oRequest.responseJSON === undefined ? '오류가 발생했습니다' : oRequest.responseJSON.message);
 };
 const nDefaultTimeout = 300;
 const bDefaultCache = false;

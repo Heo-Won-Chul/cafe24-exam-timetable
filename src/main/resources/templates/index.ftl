@@ -65,9 +65,9 @@
 </div>
 </body>
 <!-- custom javascript-->
-<script src="js/welAjax.js?v=20171112"></script>
-<script src="js/stringBuilder.js?v=20171112"></script>
-<script src="js/timetable.js?v=20171112"></script>
-<script src="js/index.js?v=20171112"></script>
+<script src="js/welAjax.js?v=20171116"></script>
+<script src="js/stringBuilder.js?v=20171116"></script>
+<script src="js/timetable.js?v=20171116"></script>
+<script src="js/index.js?v=20171116"></script>
 <!-- //custom javascript -->
 </html>
