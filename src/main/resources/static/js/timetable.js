@@ -2,45 +2,46 @@
 class TimeTable {
 
 	constructor(aData = []) {
-		this.position = 0;
-		this.size = aData.length;
+		this.nPosition = 0;
+		this.nSize = aData.length;
 		this.aData = aData;
 	}
 
 	setData(aData) {
+		this.nPosition = 0;
 		this.aData = aData;
-		this.size = aData.length;
+		this.nSize = aData.length;
 	}
 
-	size() {
-		return this.size;
+	nSize() {
+		return this.nSize;
 	}
 
 	isEmpty() {
-		return this.size === 0;
+		return this.nSize === 0;
 	}
 
 	current() {
-		return this.aData[this.position];
+		return this.aData[this.nPosition];
 	}
 
 	increment() {
-		if (this.position === this.size - 1) {
+		if (this.nPosition === this.nSize - 1) {
 			return;
 		}
 
-		this.position++;
+		this.nPosition++;
 	}
 
 	decrement() {
-		if (this.position === 0) {
+		if (this.nPosition === 0) {
 			return;
 		}
 
-		this.position--;
+		this.nPosition--;
 	}
 
 	format() {
-		return `${this.position + 1}/${this.size}`;
+		return `${this.nPosition + 1}/${this.nSize}`;
 	}
 }
