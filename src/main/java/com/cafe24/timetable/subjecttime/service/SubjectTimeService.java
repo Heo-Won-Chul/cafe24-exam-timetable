@@ -9,4 +9,6 @@ import java.util.List;
 public interface SubjectTimeService {
 
 	List<SubjectTime> findBySubjectCode(String subjectCode);
+
+	boolean isNoneMatchedList(List<SubjectTime> subjectTimeList, List<SubjectTime> compareSubjectTimeList);
 }

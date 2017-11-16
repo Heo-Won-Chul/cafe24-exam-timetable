@@ -15,7 +15,5 @@ public interface SubjectService {
 	List<Subject> addSubjectTimeList(List<Subject> subjectList);
 	Subject addSubjectTime(Subject subject);
 
-	boolean isNotReduplicated(List<Subject> subjectList, List<SubjectTime> subjectTimeList);
-
-	List<Subject> findClonedList(List<Subject> subjectList);
+	List<SubjectTime> toSubjectTimeList(List<Subject> subjectList);
 }

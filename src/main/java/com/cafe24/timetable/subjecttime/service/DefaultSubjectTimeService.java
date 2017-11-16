@@ -5,6 +5,7 @@ import com.cafe24.timetable.subjecttime.domain.SubjectTime;
 import com.cafe24.timetable.subjecttime.repository.SubjectTimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -22,6 +23,22 @@ public class DefaultSubjectTimeService implements SubjectTimeService {
 		}
 
 		return repository.selectBySubjectCode(subjectCode);
+	}
+
+	@Override
+	public boolean isNoneMatchedList(List<SubjectTime> subjectTimeList, List<SubjectTime> compareSubjectTimeList) {
+		if (CollectionUtils.isEmpty(subjectTimeList)) {
+			return true;
+		}
+
+		for (SubjectTime subjectTime : subjectTimeList) {
+			boolean anyMatched = compareSubjectTimeList.stream().anyMatch(subjectTime::isReduplicated);
+			if (anyMatched) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 }
 

@@ -71,32 +71,17 @@ public class DefaultSubjectService implements SubjectService {
 	}
 
 	@Override
-	public boolean isNotReduplicated(List<Subject> subjectList, List<SubjectTime> subjectTimeList) {
+	public List<SubjectTime> toSubjectTimeList(List<Subject> subjectList) {
 		if (CollectionUtils.isEmpty(subjectList)) {
-			return true;
+			return null;
 		}
+
+		List<SubjectTime> subjectTimeList = new ArrayList<>();
 
 		for (Subject subject : subjectList) {
-			SubjectTime standardSubjectTime = subject.findSubjectTimeByIndex(0);
-			for (SubjectTime subjectTime : subjectTimeList) {
-				if (standardSubjectTime.isReduplicated(subjectTime)) {
-					return false;
-				}
-			}
+			subjectTimeList.add(subject.findSubjectTimeByIndex(0));
 		}
 
-		return true;
-	}
-
-	@Override
-	public List<Subject> findClonedList(List<Subject> subjectList) {
-		List<Subject> cloneList = new ArrayList<>(subjectList.size());
-
-		for (Subject subject : subjectList) {
-			Subject cloneSubject = subject.clone();
-			cloneList.add(cloneSubject);
-		}
-
-		return cloneList;
+		return subjectTimeList;
 	}
 }

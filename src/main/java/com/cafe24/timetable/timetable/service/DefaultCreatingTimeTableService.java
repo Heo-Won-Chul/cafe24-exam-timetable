@@ -5,6 +5,7 @@ import com.cafe24.timetable.common.exception.OutOfRangeGradesException;
 import com.cafe24.timetable.subject.domain.Subject;
 import com.cafe24.timetable.subject.service.SubjectService;
 import com.cafe24.timetable.subjecttime.domain.SubjectTime;
+import com.cafe24.timetable.subjecttime.service.SubjectTimeService;
 import com.cafe24.timetable.timetable.domain.CombinationOfSubject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,9 @@ public class DefaultCreatingTimeTableService implements CreatingTimeTableService
 	private SubjectService subjectService;
 
 	@Autowired
+	private SubjectTimeService subjectTimeService;
+
+	@Autowired
 	private CombinationOfSubjectService combinationOfSubjectService;
 
 	private static final int MIN_SUM_GRADES = 18;
@@ -33,7 +37,7 @@ public class DefaultCreatingTimeTableService implements CreatingTimeTableService
 		}
 
 		List<List<Subject>> timeTableList = new ArrayList<>();
-		subjectService.addSubjectTimeList(subjectList);
+		subjectList = subjectService.addSubjectTimeList(subjectList);
 
 		if (isOutOfRange(subjectList)) {
 			throw new OutOfRangeGradesException();
@@ -65,9 +69,10 @@ public class DefaultCreatingTimeTableService implements CreatingTimeTableService
 		CombinationOfSubject combinationOfSubject = combiSubjectList.get(currentIndex);
 
 		for (int i = 0; i < combinationOfSubject.sizeOfSubjectTimeList(); i++) {
-			List<SubjectTime> subjectTimeList = combinationOfSubject.findSubjectTimeListByIndex(i);
-			if (subjectService.isNotReduplicated(subjectList, subjectTimeList)) {
-				List<Subject> clonedSubjectList = subjectService.findClonedList(subjectList);
+			List<SubjectTime> subjectTimeList = subjectService.toSubjectTimeList(subjectList);
+			List<SubjectTime> compareSubjectTimeList = combinationOfSubject.findSubjectTimeListByIndex(i);
+			if (subjectTimeService.isNoneMatchedList(subjectTimeList, compareSubjectTimeList)) {
+				List<Subject> clonedSubjectList = new ArrayList<>(subjectList);
 				clonedSubjectList.addAll(combinationOfSubject.toSubjectList(i));
 				
 				addTimeTable(timeTableList, clonedSubjectList, combiSubjectList, currentIndex + 1);

@@ -71,7 +71,6 @@ public class Subject implements Cloneable {
 	private static final int THREE_GRADE = 3;
 
 	public CombinationOfSubject toCombinationOfSubject() {
-
 		List<List<SubjectTime>> combinationList = new ArrayList<>();
 		if (this.grade == THREE_GRADE) {
 			combinationList.add(Arrays.asList(findSubjectTimeByIndex(0), findSubjectTimeByIndex(1)));
